@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Lightning, Copy, CheckCircle, Eye, EyeSlash, Clock, Shuffle } from '@phosphor-icons/react'
+import { Lightning, Copy, CheckCircle, Eye, EyeSlash, Shuffle } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 import { useKV } from '@github/spark/hooks'
 import { Card } from '@/components/ui/card'
@@ -9,17 +9,8 @@ import { Slider } from '@/components/ui/slider'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { generatePassword, calculatePasswordStrength, type PasswordCriteria } from '@/lib/password-generator'
-
-interface HistoryItem {
-  id: string
-  password: string
-  timestamp: number
-  length: number
-}
 
 function App() {
   const [criteria, setCriteria] = useKV<PasswordCriteria>('password-criteria', {
@@ -33,8 +24,7 @@ function App() {
 
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
-  const [copiedId, setCopiedId] = useState<string | null>(null)
-  const [history, setHistory] = useState<HistoryItem[]>([])
+  const [copied, setCopied] = useState(false)
   const [autoGenerate, setAutoGenerate] = useKV<boolean>('auto-generate', false)
 
   const strength = password && criteria ? calculatePasswordStrength(password, criteria) : null
@@ -67,26 +57,17 @@ function App() {
     try {
       const newPassword = generatePassword(criteria)
       setPassword(newPassword)
-      
-      const historyItem: HistoryItem = {
-        id: Date.now().toString(),
-        password: newPassword,
-        timestamp: Date.now(),
-        length: newPassword.length,
-      }
-      
-      setHistory((prev) => [historyItem, ...prev].slice(0, 10))
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Failed to generate password')
     }
   }
 
-  const handleCopy = async (text: string, id?: string) => {
+  const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text)
-      setCopiedId(id || 'main')
+      setCopied(true)
       toast.success('Password copied to clipboard')
-      setTimeout(() => setCopiedId(null), 2000)
+      setTimeout(() => setCopied(false), 2000)
     } catch {
       toast.error('Failed to copy password')
     }
@@ -95,19 +76,6 @@ function App() {
   const updateCriteria = (updates: Partial<PasswordCriteria>) => {
     if (!criteria) return
     setCriteria({ ...criteria, ...updates })
-  }
-
-  const formatTimestamp = (timestamp: number) => {
-    const now = Date.now()
-    const diff = now - timestamp
-    const seconds = Math.floor(diff / 1000)
-    const minutes = Math.floor(seconds / 60)
-    const hours = Math.floor(minutes / 60)
-
-    if (seconds < 60) return 'Just now'
-    if (minutes < 60) return `${minutes}m ago`
-    if (hours < 24) return `${hours}h ago`
-    return new Date(timestamp).toLocaleDateString()
   }
 
   if (!criteria) {
@@ -131,8 +99,7 @@ function App() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6">
             <Card className="p-6 border-2 border-border/50">
               <div className="space-y-6">
                 <div className="space-y-4">
@@ -163,7 +130,7 @@ function App() {
                       disabled={!password}
                     >
                       <AnimatePresence mode="wait">
-                        {copiedId === 'main' ? (
+                        {copied ? (
                           <motion.div
                             key="check"
                             initial={{ scale: 0 }}
@@ -356,64 +323,6 @@ function App() {
                 </div>
               </div>
             </Card>
-          </div>
-
-          <div className="lg:col-span-1">
-            <Card className="p-6 border-2 border-border/50 h-full">
-              <div className="flex items-center gap-2 mb-4">
-                <Clock size={20} className="text-muted-foreground" />
-                <h3 className="font-heading font-semibold text-xl text-foreground">
-                  History
-                </h3>
-              </div>
-
-              {history.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground text-sm">
-                    No passwords generated yet
-                  </p>
-                </div>
-              ) : (
-                <ScrollArea className="h-[600px] pr-4">
-                  <div className="space-y-3">
-                    <AnimatePresence>
-                      {history.map((item) => (
-                        <motion.div
-                          key={item.id}
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, x: -10 }}
-                          className="group relative p-4 rounded-lg bg-muted/50 border border-border hover:bg-muted transition-colors"
-                        >
-                          <div className="flex items-start justify-between gap-2 mb-2">
-                            <p className="font-mono text-sm text-foreground break-all flex-1 select-all">
-                              {item.password}
-                            </p>
-                            <Button
-                              onClick={() => handleCopy(item.password, item.id)}
-                              variant="ghost"
-                              size="sm"
-                              className="h-8 w-8 p-0 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                            >
-                              {copiedId === item.id ? (
-                                <CheckCircle size={16} weight="fill" className="text-green-500" />
-                              ) : (
-                                <Copy size={16} />
-                              )}
-                            </Button>
-                          </div>
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <span>{item.length} characters</span>
-                            <span>{formatTimestamp(item.timestamp)}</span>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </AnimatePresence>
-                  </div>
-                </ScrollArea>
-              )}
-            </Card>
-          </div>
         </div>
       </div>
     </div>
