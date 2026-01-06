@@ -19,6 +19,29 @@ A modern, cryptographically secure password generator built with React, TypeScri
 - **Password Visibility Toggle**: Show/hide generated passwords
 - **Responsive Design**: Fully responsive layout optimized for desktop and mobile
 - **Dark Theme**: Modern cybersecurity-inspired dark color scheme
+- **SEO Optimized**: Comprehensive meta tags, structured data, and semantic HTML for search visibility
+
+## SEO Features
+
+This application is optimized for search engines with:
+- **Complete meta tags** (title, description, keywords, Open Graph, Twitter Cards)
+- **Structured data** (WebApplication and FAQ schemas for rich snippets)
+- **Semantic HTML5** (proper heading hierarchy, ARIA labels, role attributes)
+- **Sitemap & robots.txt** for crawler guidance
+- **Mobile-first responsive design**
+- **Rich informational content** about password security best practices
+
+**📚 SEO Documentation**:
+- **[SEO-GUIDE.md](./SEO-GUIDE.md)** - Complete SEO implementation details and strategy
+- **[DEPLOYMENT-CHECKLIST.md](./DEPLOYMENT-CHECKLIST.md)** - Step-by-step deployment and post-launch tasks
+- **[URL-UPDATE-GUIDE.md](./URL-UPDATE-GUIDE.md)** - Quick reference for updating domain URLs
+
+**⚠️ Before Deploying**: Replace all instances of `https://yourdomain.com/` with your actual domain in:
+- `index.html` (6 locations)
+- `public/sitemap.xml` (1 location) 
+- `public/robots.txt` (1 location)
+
+See [URL-UPDATE-GUIDE.md](./URL-UPDATE-GUIDE.md) for detailed instructions.
 
 ## Tech Stack
 
