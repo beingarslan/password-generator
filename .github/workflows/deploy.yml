@@ -1,0 +1,62 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build project
+        run: npm run build
+      
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          SERVER_HOST: 65.108.245.231
+          SERVER_USER: root
+          SERVER_PATH: /var/www/password-generator
+        run: |
+          # Setup SSH
+          mkdir -p ~/.ssh
+          install -m 600 /dev/null ~/.ssh/deploy_key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          
+          # Add server to known_hosts
+          echo "Scanning SSH host keys..."
+          if ! ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts 2>&1; then
+            echo "Error: Failed to scan SSH host keys for $SERVER_HOST"
+            exit 1
+          fi
+          
+          # Deploy files
+          echo "Deploying to $SERVER_HOST:$SERVER_PATH..."
+          if ! rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            ./dist/ $SERVER_USER@$SERVER_HOST:$SERVER_PATH/; then
+            echo "Error: Deployment failed"
+            exit 1
+          fi
+          
+          echo "Deployment completed successfully!"
+          
+          # Cleanup
+          rm -f ~/.ssh/deploy_key
