@@ -34,15 +34,15 @@ jobs:
         run: |
           # Setup SSH
           mkdir -p ~/.ssh
+          install -m 600 /dev/null ~/.ssh/deploy_key
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
           
           # Add server to known_hosts
           ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
           
           # Deploy files
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -i ~/.ssh/deploy_key" \
             ./dist/ $SERVER_USER@$SERVER_HOST:$SERVER_PATH/
           
           # Cleanup
