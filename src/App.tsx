@@ -89,13 +89,25 @@ function App() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8 text-center"
+          className="mb-8 text-center space-y-4"
         >
-          <h1 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-2 tracking-tight">
+          <a
+            href="https://coduko.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-3"
+          >
+            <img
+              src="https://coduko.com/Coduko-logo.png"
+              alt="Coduko logo"
+              className="h-12 md:h-14 w-auto"
+            />
+          </a>
+          <h1 className="font-heading font-bold text-4xl md:text-5xl text-foreground tracking-tight">
             Coduko Password Generator
           </h1>
-          <p className="text-muted-foreground text-base">
-            Create cryptographically strong passwords tailored to your needs
+          <p className="text-muted-foreground text-base max-w-2xl mx-auto">
+            Create cryptographically strong passwords tailored to your needs with a tool designed by Coduko’s security and SEO experts.
           </p>
         </motion.header>
 
@@ -381,7 +393,7 @@ function App() {
             className="inline-flex items-center justify-center gap-3"
           >
             <img
-              src="https://coduko.com/image/FinalCoduko-05.png"
+              src="https://coduko.com/Coduko-logo.png"
               alt="Coduko logo"
               className="h-10 w-auto"
             />
