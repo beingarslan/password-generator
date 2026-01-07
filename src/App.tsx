@@ -387,7 +387,7 @@ function App() {
             />
           </a>
           <p className="leading-relaxed text-xs md:text-sm">
-            Crafted for Coduko by Arslan (beingarslan), the SEO lead behind coduko.com. Built with care to keep you secure and empowered online.
+            Crafted for Coduko by Arslan (beingarslan), the CEO behind coduko.com. Built with care to keep you secure and empowered online.
           </p>
           <p className="leading-relaxed text-xs md:text-sm">
             Visit <a className="font-semibold text-foreground" href="https://coduko.com" target="_blank" rel="noreferrer">Coduko</a> to explore more security-forward products.
