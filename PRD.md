@@ -1,6 +1,8 @@
 # Planning Guide
 
-A secure password generator that creates customizable, cryptographically strong passwords based on user-defined criteria including length, character types, and special requirements.
+A secure password generator by Coduko that creates customizable, cryptographically strong passwords based on user-defined criteria including length, character types, and special requirements.
+
+**Live URL**: https://password-generator.coduko.com/
 
 **Experience Qualities**:
 1. **Trustworthy** - Users need to feel confident that generated passwords are truly random and secure, with clear visual feedback about password strength
@@ -8,7 +10,7 @@ A secure password generator that creates customizable, cryptographically strong 
 3. **Empowering** - Users should understand what makes passwords secure through visual strength indicators and helpful guidance
 
 **Complexity Level**: Light Application (multiple features with basic state)
-This is a focused utility with several interactive controls (sliders, toggles, checkboxes) and state management for password criteria, generation history, and user preferences, but doesn't require complex routing or data persistence beyond preferences.
+This is a focused utility with several interactive controls (sliders, toggles, checkboxes) and state management for password criteria and user preferences.
 
 ## Essential Features
 

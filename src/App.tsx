@@ -37,10 +37,10 @@ function App() {
   ) : false
 
   useEffect(() => {
-    if (!password) {
+    if (!password && criteria) {
       handleGenerate()
     }
-  }, [])
+  }, [criteria])
 
   useEffect(() => {
     if (autoGenerate && password && criteria) {
@@ -92,7 +92,7 @@ function App() {
           className="mb-8 text-center"
         >
           <h1 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-2 tracking-tight">
-            Secure Password Generator
+            Coduko Password Generator
           </h1>
           <p className="text-muted-foreground text-base">
             Create cryptographically strong passwords tailored to your needs
@@ -337,7 +337,7 @@ function App() {
               Why Use a Secure Password Generator?
             </h2>
             <p className="leading-relaxed">
-              Creating strong, unique passwords for every account is essential for protecting your online identity. Our password generator uses cryptographically secure random number generation to create passwords that are virtually impossible to crack. Unlike human-created passwords, which often contain predictable patterns, generated passwords have true randomness that maximizes security.
+              Creating strong, unique passwords for every account is essential for protecting your online identity. Coduko's password generator uses cryptographically secure random number generation to create passwords that are virtually impossible to crack. Unlike human-created passwords, which often contain predictable patterns, generated passwords have true randomness that maximizes security.
             </p>
           </article>
 

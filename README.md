@@ -1,6 +1,8 @@
-# Secure Password Generator
+# Coduko Password Generator
 
 A modern, cryptographically secure password generator built with React, TypeScript, and Tailwind CSS. Generate strong, customizable passwords with real-time strength analysis and persistent user preferences.
+
+**Live Demo**: [https://password-generator.coduko.com/](https://password-generator.coduko.com/)
 
 ## Features
 
@@ -19,29 +21,6 @@ A modern, cryptographically secure password generator built with React, TypeScri
 - **Password Visibility Toggle**: Show/hide generated passwords
 - **Responsive Design**: Fully responsive layout optimized for desktop and mobile
 - **Dark Theme**: Modern cybersecurity-inspired dark color scheme
-- **SEO Optimized**: Comprehensive meta tags, structured data, and semantic HTML for search visibility
-
-## SEO Features
-
-This application is optimized for search engines with:
-- **Complete meta tags** (title, description, keywords, Open Graph, Twitter Cards)
-- **Structured data** (WebApplication and FAQ schemas for rich snippets)
-- **Semantic HTML5** (proper heading hierarchy, ARIA labels, role attributes)
-- **Sitemap & robots.txt** for crawler guidance
-- **Mobile-first responsive design**
-- **Rich informational content** about password security best practices
-
-**📚 SEO Documentation**:
-- **[SEO-GUIDE.md](./SEO-GUIDE.md)** - Complete SEO implementation details and strategy
-- **[DEPLOYMENT-CHECKLIST.md](./DEPLOYMENT-CHECKLIST.md)** - Step-by-step deployment and post-launch tasks
-- **[URL-UPDATE-GUIDE.md](./URL-UPDATE-GUIDE.md)** - Quick reference for updating domain URLs
-
-**⚠️ Before Deploying**: Replace all instances of `https://yourdomain.com/` with your actual domain in:
-- `index.html` (6 locations)
-- `public/sitemap.xml` (1 location) 
-- `public/robots.txt` (1 location)
-
-See [URL-UPDATE-GUIDE.md](./URL-UPDATE-GUIDE.md) for detailed instructions.
 
 ## Tech Stack
 
@@ -170,18 +149,6 @@ Requires support for:
 
 MIT License - See LICENSE file for details
 
-## Contributing
+## About Coduko
 
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## Acknowledgments
-
-- Built with [shadcn/ui](https://ui.shadcn.com/)
-- Icons by [Phosphor Icons](https://phosphoricons.com/)
-- Inspired by modern security best practices and NIST password guidelines
+Built with ❤️ by [Coduko](https://coduko.com) - Creating powerful web tools for everyone.
