@@ -373,6 +373,26 @@ function App() {
             </ul>
           </article>
         </section>
+        <footer className="mt-12 border-t border-border/40 pt-8 text-center text-sm text-muted-foreground space-y-3" aria-label="Coduko credits">
+          <a
+            href="https://coduko.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-3"
+          >
+            <img
+              src="https://coduko.com/image/FinalCoduko-05.png"
+              alt="Coduko logo"
+              className="h-10 w-auto"
+            />
+          </a>
+          <p className="leading-relaxed text-xs md:text-sm">
+            Crafted for Coduko by Arslan (beingarslan), the SEO lead behind coduko.com. Built with care to keep you secure and empowered online.
+          </p>
+          <p className="leading-relaxed text-xs md:text-sm">
+            Visit <a className="font-semibold text-foreground" href="https://coduko.com" target="_blank" rel="noreferrer">Coduko</a> to explore more security-forward products.
+          </p>
+        </footer>
       </div>
     </main>
   )
