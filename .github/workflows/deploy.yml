@@ -28,13 +28,13 @@ jobs:
       - name: Build project
         run: npm run build
       
-        - name: Deploy to server
-          env:
-            SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-            SERVER_HOST: 65.108.245.231
-            SERVER_USER: root
-            SERVER_PATH: /var/www/password-generator/dist
-          run: |
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          SERVER_HOST: 65.108.245.231
+          SERVER_USER: root
+          SERVER_PATH: /var/www/password-generator/dist
+        run: |
           # Setup SSH
           mkdir -p ~/.ssh
           install -m 600 /dev/null ~/.ssh/deploy_key
@@ -47,9 +47,11 @@ jobs:
             exit 1
           fi
           
+          # Ensure remote path exists
+          ssh -i ~/.ssh/deploy_key $SERVER_USER@$SERVER_HOST "mkdir -p $SERVER_PATH"
+          
           # Deploy files
           echo "Deploying to $SERVER_HOST:$SERVER_PATH..."
-            ssh -i ~/.ssh/deploy_key $SERVER_USER@$SERVER_HOST "mkdir -p $SERVER_PATH"
           if ! rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key" \
             ./dist/ $SERVER_USER@$SERVER_HOST:$SERVER_PATH/; then
